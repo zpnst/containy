@@ -5,15 +5,18 @@
          "cgroups": [
             {
                 "type": "cpu",
-                "cpu.max": "10000 100000"
+                "resource": "cpu.max",
+                "value": "10000 100000"
             },
             {   
-                "type": "memoey",
-				"memory.max": "512M"
+                "type": "memory",
+                "resource": "memory.max",
+				"value": "512M"
 			},
 			{   
                 "type": "pids",
-				"pids.max": "network"
+                "resource": "pids.max",
+				"value": "10"
 			}
         ],
         "namespaces": [
@@ -25,25 +28,21 @@
 			"cgroup"
         ]
     },
-    "user": {
+    "userns": {
         "user": {
             "uid": 0,
             "gid": 0
         },
-        "uidMappings":   {
-                "containerID": 0,
-                "hostID": 1000,
-                "size": 1000
-            }
-        ,
-        "gidMappings": [
-            {
-                "containerID": 0,
-                "hostID": 1000,
-                "size": 1000
-            }
-        ]
+        "uidMappings":  {
+            "containerID": 0,
+            "hostID": 1000,
+            "size": 1000
+        },
+        "gidMappings": {
+            "containerID": 0,
+            "hostID": 1000,
+            "size": 1000
+         }
+        
     }
-
-
 }
