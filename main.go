@@ -87,7 +87,7 @@ func main() {
 }
 
 func showVersion() {
-	fmt.Println("containy version 0.1.0")
+	fmt.Println("containy version 1.0.0")
 }
 
 func showHelp() {
