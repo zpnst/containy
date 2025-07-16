@@ -20,7 +20,7 @@ var namespacesMap map[string]uintptr = map[string]uintptr{
 	"cgroup":  syscall.CLONE_NEWCGROUP,
 }
 
-func (c Contaiery) GetNamespacesFlags() uintptr {
+func (c Containy) GetNamespacesFlags() uintptr {
 	var cloneFlags uintptr
 	for _, namespace := range c.Configy.Isolation.Namespaces {
 		cloneFlags |= namespacesMap[namespace]
@@ -28,7 +28,7 @@ func (c Contaiery) GetNamespacesFlags() uintptr {
 	return cloneFlags
 }
 
-func (c Contaiery) GetUIDMappings() []syscall.SysProcIDMap {
+func (c Containy) GetUIDMappings() []syscall.SysProcIDMap {
 	var UIDMappings []syscall.SysProcIDMap
 	UIDMappings = append(UIDMappings, syscall.SysProcIDMap{
 		ContainerID: c.Configy.UserNS.UidMappings.ContainerID,
@@ -38,7 +38,7 @@ func (c Contaiery) GetUIDMappings() []syscall.SysProcIDMap {
 	return UIDMappings
 }
 
-func (c Contaiery) GetGIDMappings() []syscall.SysProcIDMap {
+func (c Containy) GetGIDMappings() []syscall.SysProcIDMap {
 	var GIDMappings []syscall.SysProcIDMap
 	GIDMappings = append(GIDMappings, syscall.SysProcIDMap{
 		ContainerID: c.Configy.UserNS.GidMappings.ContainerID,
@@ -48,7 +48,7 @@ func (c Contaiery) GetGIDMappings() []syscall.SysProcIDMap {
 	return GIDMappings
 }
 
-func (c Contaiery) ConfigureCgroups() (uintptr, error) {
+func (c Containy) ConfigureCgroups() (uintptr, error) {
 	baseContainyCgroupPath := "/sys/fs/cgroup/containy.slice"
 	cgPath := fmt.Sprintf("%s/%s", baseContainyCgroupPath, c.Configy.ContainerName)
 	if err := os.MkdirAll(cgPath, 0755); err != nil {
@@ -81,7 +81,7 @@ func (c Contaiery) ConfigureCgroups() (uintptr, error) {
 	return f.Fd(), nil
 }
 
-func (c Contaiery) CreateContainer() {
+func (c Containy) CreateContainer() {
 	if os.Geteuid() != 0 {
 		log.Fatal("Containy must be run as root user")
 	}

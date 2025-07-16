@@ -62,7 +62,7 @@ func main() {
 		if err != nil {
 			log.Panicln(err)
 		}
-		contaiery := linux.NewContaiery(*configy, pathToTheBundle)
+		contaiery := linux.NewContainy(*configy, pathToTheBundle)
 
 		if os.Getenv("IN_CONTAINER") == "TRUE" {
 			contaiery.ContainerRuntime()

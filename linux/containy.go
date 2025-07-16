@@ -1,12 +1,12 @@
 package linux
 
-type Contaiery struct {
+type Containy struct {
 	Configy    Configy
 	BandlePath string
 }
 
-func NewContaiery(configy Configy, bandlePath string) *Contaiery {
-	return &Contaiery{
+func NewContainy(configy Configy, bandlePath string) *Containy {
+	return &Containy{
 		Configy:    configy,
 		BandlePath: bandlePath,
 	}

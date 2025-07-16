@@ -12,8 +12,12 @@ sudo containy run --bundle bundle
 
 Congratulations, you're inside the container!
 
-### rootfs pre-installed tools
+### tools that a pre-installed in debian rootfs
+
 1 - python3
-2 - net-tools
+
+2 - iproute2
+
 3 - procps
+
 4 - nano

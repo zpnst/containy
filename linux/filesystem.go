@@ -9,7 +9,7 @@ import (
 	"syscall"
 )
 
-func (c Contaiery) CreateOverlayFS(containerPath string) func() {
+func (c Containy) CreateOverlayFS(containerPath string) func() {
 	containerRootFS := fmt.Sprintf("%s/%s", containerPath, "rootfs")
 
 	lowerDir := fmt.Sprintf("%s/%s", c.BandlePath, c.Configy.RootfsPath)

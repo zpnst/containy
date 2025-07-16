@@ -8,7 +8,7 @@ import (
 	"syscall"
 )
 
-func (c Contaiery) ContainerRuntime() {
+func (c Containy) ContainerRuntime() {
 	log.Printf("[%s] :: container was created\n", c.Configy.ContainerName)
 	if err := syscall.Sethostname([]byte(c.Configy.ContainerName)); err != nil {
 		log.Fatalf("failed to set a new hostname: %v", err)
@@ -35,6 +35,7 @@ func (c Contaiery) ContainerRuntime() {
 	if err := os.MkdirAll("/sys/fs/cgroup", 0755); err != nil {
 		log.Fatalf("failed to create cgroup dir: %v", err)
 	}
+
 	if err := syscall.Mount("none", "/sys/fs/cgroup", "cgroup2", 0, ""); err != nil {
 		log.Fatalf("failed to mount cgroup2 /sys/fs/cgroup dir: %v", err)
 	}
