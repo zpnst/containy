@@ -1,6 +1,46 @@
 # containy
 
-### how to run
+## Предисловие
+Данная реализация больше похожа на runC(которым пользуется Docker), нежели чем на Docker. 
+Containy умеет создавать процесс в новых namespaces(пространствах имён) и добалвять его в cgroups(контрольные группы), ограничивая его логические и физические ресурсы. А если вкратце, Containy умеет создавать контейнеры =)
+
+Также, Containy создаёт overlayFS, этот тип файловой системы используется в Docker. Она накладывает один “слой” файлов на другой, позволяя создавать общее дерево каталогов. Данный подход помогает экономить место на диске, ведь многие контейнеры могут иметь базовую файловую систему, например, ubuntu или debian, поэтому мы храним лишь один “снапшот” этой базовой файловой системы, а уже изменения, которые контейнер вносит в них, сохраняем отдельно для каждого из контейнеров. При повторном запуске контейнера эти изменения накладываются поверх базовой файловой системы.
+
+Вот почему Docker называют “слоёным пирогом”. Тут нет магии, данная файловая система управляется ядром Linux, нам лишь нужно смонтировать её куда мы пожелаем.
+
+Одна из таких базовых файловых систем, которые можно скачать из интернета или из того же Docker Hub лежит в репозитории в архиве debian.tar.gz. На основе её и будет строится файловая система контейнера.
+
+Какие пространства имён применять, какие контрольные группы настраивать и прочие атрибуты контейнера прописывается в файле configy.json, аналогично config.json в runC, только, разумеется, Containy не реализует OCI =). Как указывать путь к директории, где лежит config.json можно посмотреть с  помощью команды сontainy help
+
+PS: В примерах синий терминал сверху – это хост, а чёрный снизу – это контейнер
+
+## Рассмотрим изоляцию на уровне namespaces
+
+Тут можно сравнить namespaces на хосте и в контейнере:
+<img src="pictures/ns.png" alt="" width="600">
+Контейнер не видит процессы  хостовой системы:
+<img src="pictures/pids.png" alt="" width="600">
+
+Контейнер не видит сетевые интерфейсы хостовой системы, у него есть только лишь loopback(localhost):
+<img src="pictures/nets.png" alt="" width="600">
+
+Также, hostname внутри контейнера никак не влияет на hostname на хосте и наоборот:
+<img src="pictures/hosts.png" alt="" width="600">
+
+## Рассмотрим  изоляцию на уровне cgroups
+
+В папке cgroups example в репозитории лежат два скрипта на Python. Один из них порождает 10 дочерних процессов, а другой в бесконечном цикле выделяет память.
+
+В cgroups стоят ограничения, которые разрешают контейнеру создать максимум 10 дочерних процессов и выделать не больше, чем 512 Мегабайт оперативной памяти
+
+Как мы видим, программа заканчивается с ошибкой. Сверху выведены логи ядра Linux, в них мы можем увидеть наш лог!
+<img src="pictures/cg_forks.png" alt="" width="600">
+
+Вторую же программу убивает OOM Killer, на шестую попытку выделить 100 Мегабайт, в логах ядра, опять же, всё видно
+<img src="pictures/hosts.cg_mallocs" alt="" width="600">
+
+
+## Как запустить: от А до Я
 
 ```bash
 git clone git@github.com:zpnst/containy.git
@@ -10,14 +50,20 @@ make extract
 sudo containy run --bundle bundle
 ```
 
-Congratulations, you're inside the container!
+Поздравляю, вы внутри контейнера!
 
-### tools that a pre-installed in debian rootfs
+## Литература
+https://habr.com/ru/articles/459574/
+https://habr.com/ru/articles/458462/
+https://habr.com/ru/companies/flant/articles/862252/
+https://habr.com/ru/companies/domclick/articles/566224/
+https://habr.com/ru/companies/selectel/articles/303190/
+https://www.youtube.com/watch?v=XgThPoL9mPE
 
-1 - python3
+https://www.youtube.com/watch?v=kcnFQgg9ToY
+https://youtu.be/XgThPoL9mPE?si=j6HqeHi4Jg0FZ9hZ
+https://youtu.be/XgThPoL9mPE?si=agv5q_uAN-bbQxzB
 
-2 - iproute2
+https://tproger.ru/articles/prava-v-linux-komandy-i-gruppy
 
-3 - procps
-
-4 - nano
+https://wiki.archlinux.org/title/Overlay_filesystem_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
