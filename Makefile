@@ -1,8 +1,13 @@
 build:
-	@go build -o bundle/containy
+	@go build -o containy
 
-run: build
-	@./bundle/containy
+extract:
+	@tar -xvzf debian.tar.gz -C bundle
 
-clean:
-	@ rm bundle/containyc
+install:
+	@mv containy /usr/local/bin/
+
+uninstall:
+	@rm /usr/local/bin/containy
+
+.PHRONY: build, clean, extract, install, uninstall

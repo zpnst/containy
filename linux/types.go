@@ -1,10 +1,11 @@
 package linux
 
 type Configy struct {
-	Version   string    `json:"version"`
-	Cmd       string    `json:"cmd"`
-	Isolation Isolation `json:"isolation"`
-	UserNS    UserNS    `json:"userns"`
+	Version    string    `json:"version"`
+	Cmd        string    `json:"cmd"`
+	RootfsPath string    `json:"rootfsPath"`
+	Isolation  Isolation `json:"isolation"`
+	UserNS     UserNS    `json:"userns"`
 }
 
 type Isolation struct {

@@ -1,6 +1,7 @@
 {
     "version": "v1",
     "cmd": "/bin/bash",
+    "rootfsPath": "debian",
     "isolation": {
          "cgroups": [
             {
