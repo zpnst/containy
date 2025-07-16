@@ -73,17 +73,13 @@ sudo containy run --bundle bundle
 Поздравляю, вы внутри контейнера!
 
 ## Литература
-- https://habr.com/ru/articles/459574/
 - https://habr.com/ru/articles/458462/
 - https://habr.com/ru/companies/flant/articles/862252/
 - https://habr.com/ru/companies/domclick/articles/566224/
 - https://habr.com/ru/companies/selectel/articles/303190/
+
+- https://www.youtube.com/watch?v=t4PEoHAvf1A
 - https://www.youtube.com/watch?v=XgThPoL9mPE
-
 - https://www.youtube.com/watch?v=kcnFQgg9ToY
-- https://youtu.be/XgThPoL9mPE?si=j6HqeHi4Jg0FZ9hZ
-- https://youtu.be/XgThPoL9mPE?si=agv5q_uAN-bbQxzB
 
-- https://tproger.ru/articles/prava-v-linux-komandy-i-gruppy
-
-- https://wiki.archlinux.org/title/Overlay_filesystem_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)
+- https://btholt.github.io/complete-intro-to-containers/chroot
