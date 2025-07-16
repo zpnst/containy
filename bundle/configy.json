@@ -1,7 +1,11 @@
 {
     "version": "v1",
-    "cmd": "/bin/bash",
     "rootfsPath": "debian",
+    "containerName": "containyy",
+    "cmd": {
+        "command": "/bin/bash",
+        "cmd_argv": ""
+    },
     "isolation": {
          "cgroups": [
             {
@@ -9,6 +13,11 @@
                 "resource": "cpu.max",
                 "value": "10000 100000"
             },
+            {   
+                "type": "memory",
+                "resource": "memory.swap.max",
+				"value": "0"
+			},
             {   
                 "type": "memory",
                 "resource": "memory.max",
@@ -21,6 +30,7 @@
 			}
         ],
         "namespaces": [
+            "user",
             "pid",
 			"network",
 			"ipc",

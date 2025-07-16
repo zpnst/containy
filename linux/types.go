@@ -1,11 +1,17 @@
 package linux
 
 type Configy struct {
-	Version    string    `json:"version"`
-	Cmd        string    `json:"cmd"`
-	RootfsPath string    `json:"rootfsPath"`
-	Isolation  Isolation `json:"isolation"`
-	UserNS     UserNS    `json:"userns"`
+	Version       string    `json:"version"`
+	RootfsPath    string    `json:"rootfsPath"`
+	ContainerName string    `json:"containerName"`
+	Cmd           CmdUnit   `json:"cmd"`
+	Isolation     Isolation `json:"isolation"`
+	UserNS        UserNS    `json:"userns"`
+}
+
+type CmdUnit struct {
+	Command string `json:"command"`
+	CmdArgv string `json:"cmd_argv"`
 }
 
 type Isolation struct {
