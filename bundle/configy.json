@@ -1,0 +1,49 @@
+{
+    "version": "v1",
+    "cmd": "/bin/bash",
+    "isolation": {
+         "cgroups": [
+            {
+                "type": "cpu",
+                "cpu.max": "10000 100000"
+            },
+            {   
+                "type": "memoey",
+				"memory.max": "512M"
+			},
+			{   
+                "type": "pids",
+				"pids.max": "network"
+			}
+        ],
+        "namespaces": [
+            "pid",
+			"network",
+			"ipc",
+			"uts",
+			"mount",
+			"cgroup"
+        ]
+    },
+    "user": {
+        "user": {
+            "uid": 0,
+            "gid": 0
+        },
+        "uidMappings":   {
+                "containerID": 0,
+                "hostID": 1000,
+                "size": 1000
+            }
+        ,
+        "gidMappings": [
+            {
+                "containerID": 0,
+                "hostID": 1000,
+                "size": 1000
+            }
+        ]
+    }
+
+
+}
