@@ -12,7 +12,7 @@ import (
 func (c Containy) CreateOverlayFS(containerPath string) func() {
 	containerRootFS := fmt.Sprintf("%s/%s", containerPath, "rootfs")
 
-	lowerDir := fmt.Sprintf("%s/%s", c.BandlePath, c.Configy.RootfsPath)
+	lowerDir := fmt.Sprintf("%s/%s", c.BundlePath, c.Configy.RootfsPath)
 	upperDir := fmt.Sprintf("%s/%s", containerPath, "diff")
 	workDir := fmt.Sprintf("%s/%s", containerPath, "work")
 
